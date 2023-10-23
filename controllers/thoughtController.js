@@ -48,6 +48,33 @@ module.exports = {
     }
   },
 
+  // delete a thought
+  async deleteThought(req, res) {
+    try {
+      
+      // Pull reaction from the Thought's reaction array
+      const thought = await Thoughts.findOneAndDelete({ _id: req.params.thoughtId });
+
+      if (!thought) {
+        return res.status(404).json({ message: 'No Thought with that ID' });
+      }
+
+      // Remove from its User's thoughts array
+      const user = await User.findOneAndUpdate(
+        { username: thought.username },
+        { $pull: { thoughts: { _id: req.params.thoughtId } } },
+        { new: true }
+      );
+      if (!user) {
+        return res.status(404).json({ message: 'No User with that ID' });
+      }
+
+      res.json({ message: 'Thought deleted!' });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
   // create a new reaction
   async addReaction(req, res) {
     try {
