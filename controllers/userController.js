@@ -39,8 +39,8 @@ module.exports = {
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $set: { username: req.params.username, email: req.params.email }},
-        { new: true }
+        { username: req.params.username, email: req.params.email },
+        { new: true },
       );
 
       if (!user) {
