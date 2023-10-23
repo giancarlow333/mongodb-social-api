@@ -83,7 +83,6 @@ module.exports = {
   // delete a reaction
   async deleteReaction(req, res) {
     try {
-      //const reaction = await Thoughts.findOneAndDelete({ _id: req.params.reactionId });
       // Pull reaction from the Thought's reaction array
       const thought = await Thoughts.findByIdAndUpdate(
         { _id: req.params.thoughtId },
@@ -93,6 +92,11 @@ module.exports = {
 
       if (!thought) {
         return res.status(404).json({ message: 'No Thought with that ID' });
+      }
+
+      const reaction = await Thoughts.findOneAndDelete({ _id: req.params.reactionId });
+      if (!reaction) {
+        return res.status(404).json({ message: 'No Reaction with that ID' });
       }
 
       res.json({ message: 'Reaction deleted!' }).status(200);
