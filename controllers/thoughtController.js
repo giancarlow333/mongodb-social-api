@@ -52,6 +52,7 @@ module.exports = {
   async addReaction(req, res) {
     try {
       const reaction = await Thoughts.create(req.body);
+      console.log(reaction);
 
       // Push its id to the Thought's reaction array
       const thought = await Thoughts.findOneAndUpdate(
@@ -63,7 +64,17 @@ module.exports = {
         return res.status(404).json({ message: 'No Thought with that ID' });
       }
       
-      res.json(thought);
+      // Push reaction's id to the User array
+      const user = await User.findOneAndUpdate(
+        { _id: req.body.userId },
+        { $push: { thoughts: reaction } },
+        { new: true },
+      );
+      if (!user) {
+        return res.status(404).json({ message: 'No user with that ID' });
+      }
+      
+      res.json(reaction);
     } catch (err) {
       res.status(500).json(err);
     }
