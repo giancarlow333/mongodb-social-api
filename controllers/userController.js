@@ -37,7 +37,11 @@ module.exports = {
   // Update an existing user
   async updateUser(req, res) {
     try {
-      const user = await User.findOneAndUpdate({ _id: req.params.userId });
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $set: { username: req.params.username, email: req.params.email }},
+        { new: true }
+      );
 
       if (!user) {
         return res.status(404).json({ message: 'No user with that ID' });
