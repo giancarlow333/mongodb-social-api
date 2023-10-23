@@ -1,0 +1,16 @@
+{
+    "name": "MongoDB Social API",
+    "version": "1.0.0",
+    "description": "Backend for a social media API using MongoDB",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+      "start": "node index",
+      "seed": "node utils/seed"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "mongoose": "^7.0.2"
+    }
+}
+  
