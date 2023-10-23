@@ -31,6 +31,17 @@ module.exports = {
   async addThought(req, res) {
     try {
       const thought = await Thoughts.create(req.body);
+
+      // Push its id to the User array
+      const user = await User.findOneAndUpdate(
+        { _id: req.body.userId },
+        { $push: { thoughts: thought } },
+        { new: true },
+      );
+      if (!user) {
+        return res.status(404).json({ message: 'No user with that ID' });
+      }
+      
       res.json(thought);
     } catch (err) {
       res.status(500).json(err);
