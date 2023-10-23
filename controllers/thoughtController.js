@@ -85,11 +85,10 @@ module.exports = {
     try {
       const reaction = await Thoughts.findOneAndDelete({ _id: req.params.reactionId });
       // Pull reaction from the Thought's reaction array
-      const thought = await Thoughts.findOneAndUpdate(
+      const thought = await Thoughts.findOne(
         { _id: req.params.thoughtId },
-        { $pull: { reactions: reaction } },
-        { new: true },
       );
+      const arrayReaction = await thought.reactions.findOneAndDelete({ _id: req.params.reactionId });
 
       if (!thought || !reaction) {
         return res.status(404).json({ message: 'No Thought with that ID' });
