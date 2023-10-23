@@ -1,28 +1,45 @@
 const { Schema, model } = require('mongoose');
 
+// Schema for Reaction subdocument
+const reactionSchema = new Schema({
+  reactionId: {
+    type: Schema.Types.ObjectId,
+    auto: true,
+  },
+  reactionBody: {
+    type: Schema.Types.String,
+    required: true,
+    minlength: 1,
+    maxlength: 280,
+  },
+  username: {
+    type: Schema.Types.String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
 // Schema to create Thought model
 const thoughtSchema = new Schema(
   {
     thoughtText: {
-        type: Schema.Types.String,
-        required: true,
-        minlength: 1,
-        maxlength: 280,
+      type: Schema.Types.String,
+      required: true,
+      minlength: 1,
+      maxlength: 280,
     },
     createdAt: {
       type: Date,
       default: Date.now,
     },
     username: {
-        type: Schema.Types.String,
-        required: true,
+      type: Schema.Types.String,
+      required: true,
     },
-    reactions: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Thoughts',
-      },
-    ],
+    reactions: [ reactionSchema ],
   },
   {
     // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
@@ -44,7 +61,7 @@ thoughtSchema
 
 // TODO: Format timestamp on query
 
-// Initialize our User model
+// Initialize our Thought model
 const Thoughts = model('thoughts', thoughtSchema);
 
 module.exports = Thoughts;
