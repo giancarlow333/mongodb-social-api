@@ -10,3 +10,7 @@
 
 * Finish User PUT route
 * Format createdAts on query
+
+## Video link
+
+https://drive.google.com/file/d/1Krr_rS1r2ywv_E_QkL_CrwH0BKeXJ4GA/view?usp=drive_link
