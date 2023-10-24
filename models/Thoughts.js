@@ -34,6 +34,7 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: timeStamp,
     },
     username: {
       type: Schema.Types.String,
@@ -46,6 +47,7 @@ const thoughtSchema = new Schema(
     // Here we are indicating that we want virtuals to be included with our response, overriding the default behavior
     toJSON: {
       virtuals: true,
+      getters: true,
     },
     id: false,
   }
@@ -60,7 +62,7 @@ thoughtSchema
 });
 
 // TODO: Format timestamp on query
-thoughtSchema.virtual('created').get(function () {
+thoughtSchema.get(function timeStamp() {
   let date = new Date(this.createdAt);
   return date.toDateString();
 });
