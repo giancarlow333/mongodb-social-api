@@ -26,6 +26,8 @@ To quote the assignment:
 
 Click [here](https://drive.google.com/file/d/1Krr_rS1r2ywv_E_QkL_CrwH0BKeXJ4GA/view?usp=drive_link) for a video showing the API's functionality.
 
+Additionally, [this video](https://drive.google.com/file/d/1SnUyn8v8UrVoutBzfqElcToVog2OwS74/view?usp=drive_link) demonstrates that, when a User is deleted, *all* associated Thoughts with that account are also deleted.
+
 ---
 
 (c) 2023 Giancarlo Whitaker
