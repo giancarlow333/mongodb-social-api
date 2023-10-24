@@ -34,7 +34,9 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: timeStamp,
+      get: (date) => {
+        return date.toDateString();
+      },
     },
     username: {
       type: Schema.Types.String,
@@ -59,12 +61,6 @@ thoughtSchema
   // Getter
   .get(function () {
     return this.reactions.length;
-});
-
-// TODO: Format timestamp on query
-thoughtSchema.get(function timeStamp() {
-  let date = new Date(this.createdAt);
-  return date.toDateString();
 });
 
 // Initialize our Thought model
