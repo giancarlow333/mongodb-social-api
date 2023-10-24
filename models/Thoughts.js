@@ -60,6 +60,10 @@ thoughtSchema
 });
 
 // TODO: Format timestamp on query
+thoughtSchema.virtual('created').get(function () {
+  let date = new Date(this.createdAt);
+  return date.toDateString();
+});
 
 // Initialize our Thought model
 const Thoughts = model('thoughts', thoughtSchema);
